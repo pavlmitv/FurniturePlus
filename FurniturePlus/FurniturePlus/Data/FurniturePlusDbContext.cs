@@ -6,9 +6,9 @@ using System.Text;
 
 namespace FurniturePlus.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class FurniturePlusDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public FurniturePlusDbContext(DbContextOptions<FurniturePlusDbContext> options)
             : base(options)
         {
         }

@@ -6,7 +6,7 @@ namespace FurniturePlus.Data.Models
     //Name of the company who sells the products
     public class Vendor
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
         [Required]
         [MaxLength(VendorNameMaxLength)]
         public string Name { get; set; }

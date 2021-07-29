@@ -5,7 +5,7 @@ namespace FurniturePlus.Data.Models
 {
     public class Item
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
         [Required]
         [MaxLength(ItemNameMaxLength)]
         public string Name { get; set; }
@@ -14,6 +14,8 @@ namespace FurniturePlus.Data.Models
         public int PurchaseCode { get; }
         [Required]
         public Category Category { get; set; }
+        [Required]
+        public int CategoryId { get; set; }
         [Required]
         public Vendor Vendor { get; set; }
         public string ImageUrl { get; set; }

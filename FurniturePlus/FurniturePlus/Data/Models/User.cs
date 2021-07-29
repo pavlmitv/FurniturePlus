@@ -6,7 +6,7 @@ namespace FurniturePlus.Data.Models
 {
     public class User
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
         [Required]
         [MinLength(UsernameMinLength)]
         [MaxLength(UsernameMaxLength)]

@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using FurniturePlus.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FurniturePlus.Data
 {
@@ -12,5 +10,20 @@ namespace FurniturePlus.Data
             : base(options)
         {
         }
+        public DbSet<Item> Items { get; init; }
+        public DbSet<Category> Categories { get; init; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder
+                .Entity<Item>()
+                .HasOne(i => i.Category)
+                .WithMany(i => i.Items)
+                .HasForeignKey(i => i.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            base.OnModelCreating(builder);
+        }
     }
 }
+

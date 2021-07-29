@@ -9,7 +9,7 @@
         public const int PasswordMinLength = 8;
         public const int PasswordMaxLength = 30;
         public const int ItemNameMaxLength = 60;
-        public const int ItemDescriptionMaxLength = 150;
+        public const int ItemDescriptionMaxLength = 250;
         public const int CategoryNameMaxLength = 30;
         public const int VendorNameMaxLength = 30;
         public const int VendorAddressMaxLength = 250;

@@ -6,10 +6,10 @@ namespace FurniturePlus.Data.Models
 {
     public class Category
     {
-        public int Id { get; set; }
+        public int Id { get; init; }
         [Required]
         [MaxLength(CategoryNameMaxLength)]
         public string Name { get; set; }
-        public ICollection<Item> Items { get; set; }
+        public IEnumerable<Item> Items { get; set; }
     }
 }

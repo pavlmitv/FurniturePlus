@@ -4,6 +4,7 @@ using FurniturePlus.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FurniturePlus.Data.Migrations
 {
@@ -57,7 +58,13 @@ namespace FurniturePlus.Data.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
-                    b.Property<int?>("VendorId")
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(7,2)");
+
+                    b.Property<int>("PurchaseCode")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VendorId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -67,42 +74,6 @@ namespace FurniturePlus.Data.Migrations
                     b.HasIndex("VendorId");
 
                     b.ToTable("Items");
-                });
-
-            modelBuilder.Entity("FurniturePlus.Data.Models.Salesman", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Salesman");
                 });
 
             modelBuilder.Entity("FurniturePlus.Data.Models.Vendor", b =>
@@ -130,12 +101,7 @@ namespace FurniturePlus.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SalesmanId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SalesmanId");
 
                     b.ToTable("Vendor");
                 });
@@ -349,21 +315,14 @@ namespace FurniturePlus.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("FurniturePlus.Data.Models.Vendor", "Vendor")
-                        .WithMany()
-                        .HasForeignKey("VendorId");
+                        .WithMany("Items")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Category");
 
                     b.Navigation("Vendor");
-                });
-
-            modelBuilder.Entity("FurniturePlus.Data.Models.Vendor", b =>
-                {
-                    b.HasOne("FurniturePlus.Data.Models.Salesman", "Salesman")
-                        .WithMany()
-                        .HasForeignKey("SalesmanId");
-
-                    b.Navigation("Salesman");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -418,6 +377,11 @@ namespace FurniturePlus.Data.Migrations
                 });
 
             modelBuilder.Entity("FurniturePlus.Data.Models.Category", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("FurniturePlus.Data.Models.Vendor", b =>
                 {
                     b.Navigation("Items");
                 });

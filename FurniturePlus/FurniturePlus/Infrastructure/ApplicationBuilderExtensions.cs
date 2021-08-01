@@ -22,7 +22,7 @@ namespace FurniturePlus.Infrastructure
         }
 
         //to migrate the initial data - the furniture categories
-        private static void SeedCategories (FurniturePlusDbContext database)
+        private static void SeedCategories(FurniturePlusDbContext database)
         {
             if (database.Categories.Any())
             {

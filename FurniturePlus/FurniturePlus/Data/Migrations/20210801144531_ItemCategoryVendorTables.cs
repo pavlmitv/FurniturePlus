@@ -2,7 +2,7 @@
 
 namespace FurniturePlus.Data.Migrations
 {
-    public partial class FirstMigration_ItemCategoryVendorUserTables : Migration
+    public partial class ItemCategoryVendorTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,23 +20,6 @@ namespace FurniturePlus.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Salesman",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Username = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Salesman", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Vendor",
                 columns: table => new
                 {
@@ -45,18 +28,11 @@ namespace FurniturePlus.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SalesmanId = table.Column<int>(type: "int", nullable: true)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Vendor", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Vendor_Salesman_SalesmanId",
-                        column: x => x.SalesmanId,
-                        principalTable: "Salesman",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,10 +42,12 @@ namespace FurniturePlus.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    PurchaseCode = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    VendorId = table.Column<int>(type: "int", nullable: true),
+                    VendorId = table.Column<int>(type: "int", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(7,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -97,11 +75,6 @@ namespace FurniturePlus.Data.Migrations
                 name: "IX_Items_VendorId",
                 table: "Items",
                 column: "VendorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Vendor_SalesmanId",
-                table: "Vendor",
-                column: "SalesmanId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -114,9 +87,6 @@ namespace FurniturePlus.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Vendor");
-
-            migrationBuilder.DropTable(
-                name: "Salesman");
         }
     }
 }

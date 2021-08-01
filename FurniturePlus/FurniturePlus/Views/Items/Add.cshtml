@@ -1,0 +1,55 @@
+﻿@*задаваме модела и асоциирането ще стане чрез Model binding-а*@
+@model AddItemFormModel
+
+@{
+    ViewData["Title"] = "Add furniture";    /*заглавие за tab-а*/
+
+    string purchaseCodeString = "Name(first 3 chars) + sequence number (TODO)"; //TODO
+}
+
+<form method="post">
+    <div class="col-6">
+        <div class="form-group">
+            <label asp-for="CategoryId"></label>
+            <select asp-for="CategoryId" class="form-control">
+               @foreach (var category in Model.ItemCategories)
+               {
+                   <option value="@category.Id">@category.Name</option>
+               }
+            </select>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" placeholder="Glass buffet sideboard" />
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea class="form-control" rows="3" placeholder="Share more about your furniture here..."></textarea>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label asp-for="ImageUrl"></label>
+            <input asp-for="ImageUrl" class="form-control" />
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="form-group">
+            <label asp-for="Price"></label>
+            <input asp-for="Price" class="form-control" placeholder="450.99"/>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label asp-for="PurchaseCode"></label>
+            <input asp-for="PurchaseCode" class="form-control" placeholder=@purchaseCodeString readonly />
+        </div>
+    </div>
+    <div class="col-12">
+        <input class="btn btn-primary" type="submit" value="Add" />
+    </div>
+</form>

@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using static FurniturePlus.Data.Models.Constants;
 
 namespace FurniturePlus.Data.Models
 {
-    //Name of the company who sells the products
+    //Vendors are the companies who sell furniture via the website
     public class Vendor
     {
         public int Id { get; init; }
@@ -18,7 +19,8 @@ namespace FurniturePlus.Data.Models
         [Required]
         public string Email { get; set; }
         [Required]
-        public Salesman Salesman { get; set; }
+      //  public Salesman Salesman { get; set; }
+        public IEnumerable<Item> Items { get; set; }
 
     }
 }

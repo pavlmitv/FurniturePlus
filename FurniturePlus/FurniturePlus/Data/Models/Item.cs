@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using static FurniturePlus.Data.Models.Constants;
 
 namespace FurniturePlus.Data.Models
@@ -11,15 +12,18 @@ namespace FurniturePlus.Data.Models
         public string Name { get; set; }
         //automatically generated: first 3 letters from Vendor + sequence number;
         [Required]
-        public int PurchaseCode { get; }
+        public int PurchaseCode { get; set; }
         [Required]
         public Category Category { get; set; }
-        [Required]
         public int CategoryId { get; set; }
         [Required]
         public Vendor Vendor { get; set; }
+        public int VendorId { get; set; }
         public string ImageUrl { get; set; }
         [MaxLength(ItemDescriptionMaxLength)]
         public string Description { get; set; }
+        [Required]
+        [Column(TypeName ="decimal(7,2)")]
+        public decimal Price { get; set; }
     }
 }

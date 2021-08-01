@@ -21,6 +21,12 @@ namespace FurniturePlus.Data
                 .WithMany(i => i.Items)
                 .HasForeignKey(i => i.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
+            builder
+               .Entity<Item>()
+               .HasOne(i => i.Vendor)
+               .WithMany(i => i.Items)
+               .HasForeignKey(i => i.VendorId)
+               .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
         }

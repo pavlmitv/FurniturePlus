@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FurniturePlus.Data.Migrations
 {
     [DbContext(typeof(FurniturePlusDbContext))]
-    [Migration("20210801144531_ItemCategoryVendorTables")]
-    partial class ItemCategoryVendorTables
+    [Migration("20210802103206_ItemsCategoriesVendorsTables")]
+    partial class ItemsCategoriesVendorsTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,8 +63,9 @@ namespace FurniturePlus.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(7,2)");
 
-                    b.Property<int>("PurchaseCode")
-                        .HasColumnType("int");
+                    b.Property<string>("PurchaseCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VendorId")
                         .HasColumnType("int");
@@ -105,7 +106,7 @@ namespace FurniturePlus.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vendor");
+                    b.ToTable("Vendors");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

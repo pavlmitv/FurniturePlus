@@ -12,6 +12,7 @@ namespace FurniturePlus.Data
         }
         public DbSet<Item> Items { get; init; }
         public DbSet<Category> Categories { get; init; }
+        public DbSet<Vendor> Vendors { get; init; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

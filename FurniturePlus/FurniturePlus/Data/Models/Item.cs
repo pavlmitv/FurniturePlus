@@ -12,7 +12,7 @@ namespace FurniturePlus.Data.Models
         public string Name { get; set; }
         //automatically generated: first 3 letters from Vendor + sequence number;
         [Required]
-        public int PurchaseCode { get; set; }
+        public string PurchaseCode { get; set; }
         [Required]
         public Category Category { get; set; }
         public int CategoryId { get; set; }

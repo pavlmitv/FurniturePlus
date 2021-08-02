@@ -61,8 +61,9 @@ namespace FurniturePlus.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(7,2)");
 
-                    b.Property<int>("PurchaseCode")
-                        .HasColumnType("int");
+                    b.Property<string>("PurchaseCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VendorId")
                         .HasColumnType("int");
@@ -103,7 +104,7 @@ namespace FurniturePlus.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vendor");
+                    b.ToTable("Vendors");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

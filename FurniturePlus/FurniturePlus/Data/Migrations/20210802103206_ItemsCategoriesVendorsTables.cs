@@ -2,7 +2,7 @@
 
 namespace FurniturePlus.Data.Migrations
 {
-    public partial class ItemCategoryVendorTables : Migration
+    public partial class ItemsCategoriesVendorsTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,7 +20,7 @@ namespace FurniturePlus.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Vendor",
+                name: "Vendors",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -32,7 +32,7 @@ namespace FurniturePlus.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vendor", x => x.Id);
+                    table.PrimaryKey("PK_Vendors", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,7 +42,7 @@ namespace FurniturePlus.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    PurchaseCode = table.Column<int>(type: "int", nullable: false),
+                    PurchaseCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     VendorId = table.Column<int>(type: "int", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -59,9 +59,9 @@ namespace FurniturePlus.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Items_Vendor_VendorId",
+                        name: "FK_Items_Vendors_VendorId",
                         column: x => x.VendorId,
-                        principalTable: "Vendor",
+                        principalTable: "Vendors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -86,7 +86,7 @@ namespace FurniturePlus.Data.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Vendor");
+                name: "Vendors");
         }
     }
 }

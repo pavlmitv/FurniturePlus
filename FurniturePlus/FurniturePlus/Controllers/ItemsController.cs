@@ -1,5 +1,6 @@
 ﻿using FurniturePlus.Data;
 using FurniturePlus.Data.Models;
+using FurniturePlus.Infrastructure;
 using FurniturePlus.Models.Items;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -66,8 +67,6 @@ namespace FurniturePlus.Controllers
                 })
                 .ToList();
 
-
-
             var itemCategories = this.data
                 .Items
                 .Select(i => i.Category)
@@ -84,6 +83,11 @@ namespace FurniturePlus.Controllers
         [Authorize]
         public IActionResult Add()
         {
+            if (!this.IsSalesman())
+            {
+                return RedirectToAction(nameof(SalesmenController.RegisterSalesman), "Salesmen");
+            }
+
             return View(new AddItemFormModel
             {
                 ItemCategories = this.GetItemCategories()
@@ -122,6 +126,11 @@ namespace FurniturePlus.Controllers
             this.data.SaveChanges();
             return RedirectToAction(nameof(All));
         }
+
+        private bool IsSalesman()
+            => this.data
+                .Salesmen
+                .Any(s => s.UserId == this.User.GetId());
 
         private IEnumerable<ItemCategoryViewModel> GetItemCategories()
         {

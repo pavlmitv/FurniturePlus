@@ -28,7 +28,16 @@ namespace FurniturePlus
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //TODO: change the password requirements after finishing the project
+            services.AddDefaultIdentity<IdentityUser>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 1;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                // options.SignIn.RequireConfirmedAccount = true;
+            })
                 .AddEntityFrameworkStores<FurniturePlusDbContext>();
             services.AddControllersWithViews();
         }

@@ -1,0 +1,106 @@
+﻿@model ItemSearchModel
+
+@{
+    ViewData["Title"] = "Browse Furniture";
+}
+
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label asp-for="CategoryId"></label>
+            <select asp-for="CategoryId" class="form-control">
+                <option value="">All</option>
+                @foreach (var category in Model.Categories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="SearchTerm" id="SearchTerm"></label>
+            <input asp-for="SearchTerm" class="form-control" placeholder="Search..." id="SearchTerm" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label asp-for="Sorting"></label>
+            <select asp-for="Sorting" class="form-control">
+                <option value="0" selected>Category</option>
+                <option value="1">Name</option>
+                <option value="2">Price (Ascending🠕)</option>
+                <option value="3">Price (Descending🠗)</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3">
+            <input class="btn btn-primary" type="submit" value="Search" />
+        </div>
+        <div class="mb-12 offset-10">
+            <input class="btn btn-primary" type="reset" value="Reset filters" id="reset-filters" />  @*TODO*@
+        </div>
+
+        @*@section Scripts{
+                <script>
+                    document.getElementById("reset-filters").addEventListener("click", resetFilters);
+                    function resetFilters(){
+                        @(Model.SearchTerm = string.Empty);
+                        @(Model.CategoryId = string.Empty);
+                    }
+                </script>
+            }*@
+
+    </div>
+</form>
+
+
+<div class="row">
+    @foreach (var item in Model.Items)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img class="card-img-top" src="@item.ImageUrl" alt="@item.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.Description</p>
+                    <a asp-controller="Items" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@{
+    var previousPage = Model.CurrentPage;
+    var nextPage = Model.CurrentPage;
+    var maxPages = (int)Math.Ceiling((double)Model.ItemsCount / ItemSearchModel.ItemsPerPage);
+
+    if (Model.CurrentPage == 1)
+    {
+        previousPage = 1;
+    }
+    else
+    {
+        previousPage = Model.CurrentPage - 1;
+    }
+
+    if (Model.CurrentPage == maxPages)
+    {
+        nextPage = maxPages;
+    }
+    else
+    {
+        nextPage = Model.CurrentPage + 1;
+    }
+}
+
+<div class="row">
+    <div class=" col-md-6">
+        <a class="btn btn-primary @(Model.CurrentPage==1 ? "disabled" : string.Empty)" asp-controller="Items" asp-action="All" asp-route-currentPage="@previousPage">⏪</a>
+    </div>
+    <div class=" col-md-6">
+        <a class="btn btn-primary @(Model.CurrentPage==maxPages ? "disabled" : string.Empty) float-right" asp-controller="Items" asp-action="All" asp-route-currentPage="@nextPage">⏩</a>
+    </div>
+</div>
+
+

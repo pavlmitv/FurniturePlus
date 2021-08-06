@@ -3,7 +3,7 @@ using FurniturePlus.Data.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static FurniturePlus.Data.Models.Constants;
+using static FurniturePlus.Data.Models.Constants.Item;
 
 namespace FurniturePlus.Models.Items
 {

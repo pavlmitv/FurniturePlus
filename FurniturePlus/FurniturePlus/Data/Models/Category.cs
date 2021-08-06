@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using static FurniturePlus.Data.Models.Constants;
+using static FurniturePlus.Data.Models.Constants.Category;
 
 namespace FurniturePlus.Data.Models
 {

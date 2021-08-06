@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using static FurniturePlus.Data.Models.Constants;
+using static FurniturePlus.Data.Models.Constants.Vendor;
 
 namespace FurniturePlus.Data.Models
 {
@@ -10,17 +10,18 @@ namespace FurniturePlus.Data.Models
         public int Id { get; init; }
         [Required]
         [MaxLength(VendorNameMaxLength)]
-        public string Name { get; set; }
+        public string Name { get; init; }
         [Required]
         [MaxLength(VendorAddressMaxLength)]
-        public string Address { get; set; }
+        public string Address { get; init; }
         [Required]
-        public string Phone { get; set; }
+        public string Phone { get; init; }
         [Required]
-        public string Email { get; set; }
-        [Required]
-      //  public Salesman Salesman { get; set; }
-        public IEnumerable<Item> Items { get; set; }
+        public string Email { get; init; }
+        public string VATNumber { get; init; }
+        public IEnumerable<Item> Items { get; init; }
+        public IEnumerable<Salesman> Salesmen { get; init; }
+
 
     }
 }

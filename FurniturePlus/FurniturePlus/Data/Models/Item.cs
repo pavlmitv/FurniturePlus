@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static FurniturePlus.Data.Models.Constants;
+using static FurniturePlus.Data.Models.Constants.Item;
 
 namespace FurniturePlus.Data.Models
 {
@@ -17,8 +17,9 @@ namespace FurniturePlus.Data.Models
         public Category Category { get; set; }
         public int CategoryId { get; set; }
         [Required]
-        public Vendor Vendor { get; set; }
-        public int VendorId { get; set; }
+        public Vendor Vendor { get; init; }
+        [Required]
+        public int VendorId { get; init; }
         public string ImageUrl { get; set; }
         [MaxLength(ItemDescriptionMaxLength)]
         public string Description { get; set; }

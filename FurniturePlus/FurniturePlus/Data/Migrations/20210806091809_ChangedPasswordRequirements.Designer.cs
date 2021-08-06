@@ -4,14 +4,16 @@ using FurniturePlus.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FurniturePlus.Data.Migrations
 {
     [DbContext(typeof(FurniturePlusDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210806091809_ChangedPasswordRequirements")]
+    partial class ChangedPasswordRequirements
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,44 +79,6 @@ namespace FurniturePlus.Data.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("FurniturePlus.Data.Models.Salesman", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("VendorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.HasIndex("VendorId");
-
-                    b.ToTable("Salesmen");
-                });
-
             modelBuilder.Entity("FurniturePlus.Data.Models.Vendor", b =>
                 {
                     b.Property<int>("Id")
@@ -138,9 +102,6 @@ namespace FurniturePlus.Data.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VATNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -367,23 +328,6 @@ namespace FurniturePlus.Data.Migrations
                     b.Navigation("Vendor");
                 });
 
-            modelBuilder.Entity("FurniturePlus.Data.Models.Salesman", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithOne()
-                        .HasForeignKey("FurniturePlus.Data.Models.Salesman", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("FurniturePlus.Data.Models.Vendor", "Vendor")
-                        .WithMany("Salesmen")
-                        .HasForeignKey("VendorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Vendor");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -443,8 +387,6 @@ namespace FurniturePlus.Data.Migrations
             modelBuilder.Entity("FurniturePlus.Data.Models.Vendor", b =>
                 {
                     b.Navigation("Items");
-
-                    b.Navigation("Salesmen");
                 });
 #pragma warning restore 612, 618
         }

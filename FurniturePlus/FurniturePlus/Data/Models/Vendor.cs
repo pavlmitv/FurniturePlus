@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using static FurniturePlus.Data.Models.Constants.Vendor;
 
 namespace FurniturePlus.Data.Models
@@ -21,7 +22,6 @@ namespace FurniturePlus.Data.Models
         public string VATNumber { get; init; }
         public IEnumerable<Item> Items { get; init; }
         public IEnumerable<Salesman> Salesmen { get; init; }
-
 
     }
 }

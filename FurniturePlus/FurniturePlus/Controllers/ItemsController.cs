@@ -4,6 +4,7 @@ using FurniturePlus.Infrastructure;
 using FurniturePlus.Models.Items;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -85,7 +86,7 @@ namespace FurniturePlus.Controllers
         {
             if (!this.IsSalesman())
             {
-                  
+
                 return RedirectToAction(nameof(SalesmenController.RegisterSalesman), "Salesmen");
             }
 
@@ -104,21 +105,33 @@ namespace FurniturePlus.Controllers
             {
                 this.ModelState.AddModelError(nameof(item.CategoryId), "Category does not exist.");
             }
-
             if (!ModelState.IsValid)
             {
                 item.ItemCategories = this.GetItemCategories();
                 return View(item);
             }
 
+            var itemVendor = this.data
+                .Vendors
+                .Where(v => v.Id == this.data
+                .Salesmen
+                .Where(s => s.UserId == this.User.GetId())
+                .FirstOrDefault()
+                .VendorId)
+                .FirstOrDefault();
+
+            //Purchase Code = first 3 letters from Vendor's name + random 6 digits number;
+            var rnd = new Random();
+            var purchaseCode = itemVendor.Name.Substring(0, 3).ToUpper() + (rnd.Next(0, 1000000).ToString("D6"));
+
             var newItem = new Item
             {
                 Id = item.Id,
                 Name = item.Name,
-                PurchaseCode = "VEN001",        //TODO
+                PurchaseCode = purchaseCode,
                 Category = item.Category,
                 CategoryId = item.CategoryId,
-                Vendor = this.data.Vendors.FirstOrDefault(),        //TODO
+                Vendor = itemVendor,
                 ImageUrl = item.ImageUrl,
                 Description = item.Description,
                 Price = item.Price

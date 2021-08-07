@@ -26,6 +26,7 @@ namespace FurniturePlus.Controllers
         //Model binding: ASP.NET core ще попълни модела (AddItemFormModel item) с данните от request-a и ще върне view
         public IActionResult AddVendor(AddVendorFormModel vendor)
         {
+
             var newVendor = new Vendor
             {
                 Id = vendor.Id,

@@ -30,7 +30,6 @@ namespace FurniturePlus.Controllers
                         Description = i.Description,
                         Price = i.Price
                     })
-                    .Take(3)
                     .ToList();
 
             return View(new IndexViewModel

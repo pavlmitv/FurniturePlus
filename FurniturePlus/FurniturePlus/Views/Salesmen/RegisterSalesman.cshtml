@@ -5,21 +5,20 @@
 }
 
 <form method="post">
-    @*<div class="col-6">
-            <div class="form-group">
-                <label asp-for="VendorId"></label>
-                <select asp-for="VendorId" class="form-control">
-                    @foreach (var vendor in Model.SalesmanVendors)
-                    {
-                    <option value="@vendor.Id">@vendor.Name</option>
-                    }
-                </select>
-            </div>
-        </div>*@
-
     <p class="text-danger">You need to be a registered salesman in order to add new furniture.</p> @*TODO: show only when the view is reached from IActionResult Add()*@
     <h2>Registration form</h2>
     <hr />
+    <div class="col-6">
+        <div class="form-group">
+            <label asp-for="VendorId"></label>
+            <select asp-for="VendorId" class="form-control">
+                @foreach (var vendor in Model.SalesmanVendors)
+                {
+                    <option value="@vendor.Id">@vendor.Name</option>
+                }
+            </select>
+        </div>
+    </div>
     <div class="col-6">
         <div class="form-group">
             <label asp-for="FirstName"></label>
@@ -32,6 +31,13 @@
             <label asp-for="LastName"></label>
             <input asp-for="LastName" class="form-control" placeholder="Wick" />
             <span asp-validation-for="LastName" class="small text-danger"></span>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label asp-for="PhoneNumber"></label>
+            <input asp-for="PhoneNumber" class="form-control" placeholder="+XXXXXXXXXXXXX" />
+            <span asp-validation-for="PhoneNumber" class="small text-danger"></span>
         </div>
     </div>
     <div class="col-12">

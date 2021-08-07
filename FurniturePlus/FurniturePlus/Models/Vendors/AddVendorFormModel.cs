@@ -17,6 +17,7 @@ namespace FurniturePlus.Models.Vendors
         [MaxLength(VendorAddressMaxLength)]
         public string Address { get; init; }
         [Required]
+        [RegularExpression(@"\+[0-9]{1,3}[0-9]{10}", ErrorMessage = "The format should be: \" + \" + country code + phone number.")]
         public string Phone { get; init; }
         [Required]
         public string Email { get; init; }

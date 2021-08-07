@@ -125,6 +125,7 @@ namespace FurniturePlus.Controllers
             };
             this.data.Items.Add(newItem);
             this.data.SaveChanges();
+
             return RedirectToAction(nameof(All));
         }
 

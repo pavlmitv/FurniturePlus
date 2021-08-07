@@ -1,5 +1,4 @@
-﻿
-namespace FurniturePlus.Models.Salesmen
+﻿namespace FurniturePlus.Models.Salesmen
 {
     public class SalesmanVendorViewModel
     {

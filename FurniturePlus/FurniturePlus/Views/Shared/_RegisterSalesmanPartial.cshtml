@@ -1,0 +1,11 @@
+﻿@inject FurniturePlus.Data.FurniturePlusDbContext data
+
+@if (!data.Salesmen.Any(s => s.UserId == this.User.GetId()))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Vendors" asp-action="AddVendor">Register new vendor</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Salesmen" asp-action="RegisterSalesman">Register as salesman</a>
+    </li>
+}

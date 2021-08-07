@@ -81,10 +81,11 @@ namespace FurniturePlus.Controllers
         }
 
         [Authorize]
-        public IActionResult Add()
+        public IActionResult AddItem()
         {
             if (!this.IsSalesman())
             {
+                  
                 return RedirectToAction(nameof(SalesmenController.RegisterSalesman), "Salesmen");
             }
 
@@ -97,7 +98,7 @@ namespace FurniturePlus.Controllers
         [HttpPost]
         [Authorize]
         //Model binding: ASP.NET core ще попълни модела (AddItemFormModel item) с данните от request-a и ще върне view
-        public IActionResult Add(AddItemFormModel item)
+        public IActionResult AddItem(AddItemFormModel item)
         {
             if (!this.data.Categories.Any(c => c.Id == item.CategoryId))
             {

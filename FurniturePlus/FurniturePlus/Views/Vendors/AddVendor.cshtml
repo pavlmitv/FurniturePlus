@@ -1,0 +1,48 @@
+﻿@model AddVendorFormModel
+
+@{
+    ViewData["Title"] = "Add vendor";    /*заглавие за tab-а*/
+}
+
+<h2>Vendor registration</h2>
+<hr />
+<form method="post">
+    <div class="col-6">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" placeholder="" />
+            <span asp-validation-for="Name" class="small text-danger"></span>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label asp-for="VATNumber"></label>
+            <input asp-for="VATNumber" class="form-control" placeholder="BG00123893" />
+            <span asp-validation-for="VATNumber" class="small text-danger"></span>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label asp-for="Address"></label>
+            <textarea asp-for="Address" class="form-control" rows="2" placeholder=""></textarea>
+            <span asp-validation-for="Address" class="small text-danger"></span>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label asp-for="Phone"></label>
+            <input asp-for="Phone" class="form-control" placeholder="+XXXXXXXXXXXXX" />
+            <span asp-validation-for="Phone" class="small text-danger"></span>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" placeholder="example@email.com" />
+            <span asp-validation-for="Email" class="small text-danger"></span>
+        </div>
+    </div>
+    <div class="col-12">
+        <input class="btn btn-primary" type="submit" value="Register" />    @*TODO: "Send a request" to the admins*@
+    </div>
+</form>

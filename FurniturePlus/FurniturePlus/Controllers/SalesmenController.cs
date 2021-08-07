@@ -25,11 +25,9 @@ namespace FurniturePlus.Controllers
 
         [HttpPost]
         [Authorize]
-
         public IActionResult RegisterSalesman(RegisterSalesmanFormModel salesman)
         {
             var userId = this.User.GetId();
-
             var userIsAlreadySalesman = this.data
                 .Salesmen
                 .Any(s => s.UserId == userId);

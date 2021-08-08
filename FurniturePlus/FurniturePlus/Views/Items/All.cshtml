@@ -34,10 +34,10 @@
         </div>
     </div>
     <div class="row">
-        <div class="mb-3">
+        <div class="mb-3 ml-2">
             <input class="btn btn-primary" type="submit" value="Search" />
         </div>
-        <div class="mb-12 offset-10">
+        <div class="mb-12 offset-10 mr-auto">
             <input class="btn btn-primary" type="reset" value="Reset filters" id="reset-filters" />  @*TODO*@
         </div>
 
@@ -93,6 +93,11 @@
     {
         nextPage = Model.CurrentPage + 1;
     }
+}
+
+@if (!Model.Items.Any())
+{
+    <h4 class="text-center">No results found.</h4>
 }
 
 <div class="row">

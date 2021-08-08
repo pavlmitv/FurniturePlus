@@ -86,7 +86,6 @@ namespace FurniturePlus.Controllers
         {
             if (!this.IsSalesman())
             {
-
                 return RedirectToAction(nameof(SalesmenController.RegisterSalesman), "Salesmen");
             }
 

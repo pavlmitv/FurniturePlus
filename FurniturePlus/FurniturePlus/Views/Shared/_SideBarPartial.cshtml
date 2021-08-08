@@ -1,0 +1,10 @@
+﻿@inject FurniturePlus.Data.FurniturePlusDbContext data;
+ 
+<div class="float-left navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom ml-2">
+    <li class="list-group-item active list-group-item-primary">Vendors</li>
+    @foreach (var vendor in this.data.Vendors)
+    {
+        <a class="list-group-item nav-link text-dark" asp-area="" asp-controller="Items" asp-action="All">@vendor.Name</a>
+    }
+
+</div>

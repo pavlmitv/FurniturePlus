@@ -23,6 +23,7 @@ namespace FurniturePlus.Controllers
 
         [HttpPost]
         [Authorize]
+        [AutoValidateAntiforgeryToken]
         //Model binding: ASP.NET core ще попълни модела (AddItemFormModel item) с данните от request-a и ще върне view
         public IActionResult AddVendor(AddVendorFormModel vendor)
         {

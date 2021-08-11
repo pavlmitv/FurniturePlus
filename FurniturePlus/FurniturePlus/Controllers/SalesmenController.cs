@@ -29,6 +29,7 @@ namespace FurniturePlus.Controllers
 
         [HttpPost]
         [Authorize]
+        [AutoValidateAntiforgeryToken]
         public IActionResult RegisterSalesman(RegisterSalesmanFormModel salesman)
         {
             if (!this.data.Vendors.Any(v => v.Id == salesman.VendorId))

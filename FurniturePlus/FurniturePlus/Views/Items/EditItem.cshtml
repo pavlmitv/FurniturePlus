@@ -1,10 +1,7 @@
-﻿@*задаваме модела и асоциирането ще стане чрез Model binding-а*@
-@model AddItemFormModel
+﻿@model EditItemFormModel
 
 @{
-    ViewData["Title"] = "Add furniture";    /*заглавие за tab-а*/
-
-   
+    ViewData["Title"] = "Edit";   
 }
 
 <form method="post">
@@ -12,24 +9,23 @@
         <div class="form-group">
             <label asp-for="CategoryId"></label>
             <select asp-for="CategoryId" class="form-control">
-               @foreach (var category in Model.ItemCategories)
-               {
-                   <option value="@category.Id">@category.Name</option>
-               }
+                @foreach (var category in Model.ItemCategories)
+                {
+    <option value="@category.Id">@category.Name</option>}
             </select>
         </div>
     </div>
     <div class="col-6">
         <div class="form-group">
             <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control" placeholder="Glass buffet sideboard" />
+            <input asp-for="Name" class="form-control"/>
             <span asp-validation-for="Name" class="small text-danger"></span>
         </div>
     </div>
     <div class="col-6">
         <div class="form-group">
             <label asp-for="Description"></label>
-            <textarea asp-for="Description" class="form-control" rows="3" placeholder="Share more about your furniture here..."></textarea>
+            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
         </div>
     </div>
     <div class="col-6">
@@ -46,13 +42,7 @@
             <span asp-validation-for="Price" class="small text-danger"></span>
         </div>
     </div>
-    @*<div class="col-6">
-        <div class="form-group">
-            <label asp-for="PurchaseCode"></label>
-            <input asp-for="PurchaseCode" class="form-control" placeholder=@purchaseCodeString readonly />
-        </div>
-    </div>*@
     <div class="col-12">
-        <input class="btn btn-primary" type="submit" value="Add" />
+        <input class="btn btn-primary" type="submit" value="Save" />
     </div>
 </form>

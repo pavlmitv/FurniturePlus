@@ -1,5 +1,6 @@
 using FurniturePlus.Data;
 using FurniturePlus.Infrastructure;
+using FurniturePlus.Services.Items;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -44,6 +45,8 @@ namespace FurniturePlus
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
             });
+
+            services.AddTransient<IItemService, ItemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

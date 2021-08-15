@@ -1,0 +1,30 @@
+﻿@model DetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="row">
+    <p class="list-group-item list-group-item-action active text-center">@Model.Name</p>
+    <ul class="list-group list-group-flush col-6">
+        <li class="list-group-item">@Model.PurchaseCode</li>
+        <li class="list-group-item">
+            <h5 class="font-weight-light">Description:</h5>
+            <br />
+            <div>@Model.Description</div>
+        </li>
+    </ul>
+    <img style="display: block; text-align: right" class="card-img-top  col-6 ml-auto mt-3"
+         src="@Model.ImageUrl" alt="">
+
+</div>
+<a asp-controller="Items" asp-action="EditItem" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+
+@*public int Id { get; init; }
+    public string Name { get; init; }
+    public string PurchaseCode { get; init; }
+    public Category Category { get; init; }
+    public string ImageUrl { get; init; }
+    public string Description { get; init; }
+    public decimal Price { get; init; }*@

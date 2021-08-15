@@ -1,5 +1,6 @@
 ﻿@inject FurniturePlus.Data.FurniturePlusDbContext data
 
+
 @if (!data.Salesmen.Any(s => s.UserId == this.User.GetId()))
 {
     <li class="nav-item">

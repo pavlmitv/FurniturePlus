@@ -1,8 +1,6 @@
 ﻿@model ItemSearchModel
 
-@{
-    ViewData["Title"] = "Browse Furniture";
-}
+@{ ViewData["Title"] = "Browse Furniture"; }
 <h2>Browse furniture</h2>
 <hr />
 <form method="get">
@@ -13,8 +11,7 @@
                 <option value="">All</option>
                 @foreach (var category in Model.Categories)
                 {
-                    <option value="@category.Id">@category.Name</option>
-                }
+    <option value="@category.Id">@category.Name</option>}
             </select>
         </div>
         <div class="form-group col-md-6">
@@ -54,25 +51,25 @@
     </div>
 </form>
 
-
 <div class="row">
     @foreach (var item in Model.Items)
     {
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <img class="card-img-top" src="@item.ImageUrl" alt="@item.Name">
-                <div class="card-body">
-                    <h5 class="card-title">@item.Name</h5>
-                    <p class="card-text">@item.Description</p>
-                    <a asp-controller="Items" asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
-                </div>
-            </div>
+<div class="col-md-4">
+
+    <div class="card mb-4">
+        <a asp-controller="Items" asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">
+            <img class="card-img-top" src="@item.ImageUrl" alt="@item.Name">
+        </a>
+
+        <div class="card-body text-dark">
+            <h5 class="card-title">@item.Name</h5>
+            <p class="card-text">@item.Description</p>
         </div>
-    }
+    </div>
+</div>}
 </div>
 
-@{
-    var previousPage = Model.CurrentPage;
+@{ var previousPage = Model.CurrentPage;
     var nextPage = Model.CurrentPage;
     var maxPages = (int)Math.Ceiling((double)Model.ItemsCount / ItemSearchModel.ItemsPerPage);
 
@@ -92,20 +89,18 @@
     else
     {
         nextPage = Model.CurrentPage + 1;
-    }
-}
+    } }
 
 @if (!Model.Items.Any())
 {
-    <h4 class="text-center">No results found.</h4>
-}
+<h4 class="text-center">No results found.</h4>}
 
 <div class="row">
     <div class=" col-md-6">
         <a class="btn btn-primary @(Model.CurrentPage==1 ? "disabled" : string.Empty)" asp-controller="Items" asp-action="All" asp-route-currentPage="@previousPage">⏪</a>
     </div>
     <div class=" col-md-6">
-        <a class="btn btn-primary @(Model.CurrentPage==maxPages ? "disabled" : string.Empty) float-right" asp-controller="Items" asp-action="All" asp-route-currentPage="@nextPage">⏩</a>
+        <a class="btn btn-primary @(Model.CurrentPage==maxPages ? "disabled" : string.Empty) float-right" type="submit" asp-controller="Items" asp-action="All" asp-route-currentPage="@nextPage">⏩</a>
     </div>
 </div>
 

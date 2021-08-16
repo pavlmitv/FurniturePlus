@@ -8,6 +8,6 @@ namespace FurniturePlus.Services.Items
 {
     public interface IItemService
     {
-        DetailsViewModel Details(int itemId);
+        DetailsViewModel Details(int itemId, bool isEditable);
     }
 }

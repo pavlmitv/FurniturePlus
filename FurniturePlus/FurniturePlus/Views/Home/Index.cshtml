@@ -13,11 +13,6 @@
     <h1 class="display-4">Welcome to FurniturePlus</h1>
     <br />
     <h4>The best business to client solution in the furniture industry</h4>
-    @*
-        1.Organize your home interior.
-        2.The best business to client solution for interior design
-        3. Where partnership.. etc........ X.X
-    *@
 
 </div>
 
@@ -28,7 +23,7 @@
             <div class="carousel-item @(i==0 ? "active" : string.Empty)">
                 <img class="w-100" src="@items[i].ImageUrl" alt="@items[i].Name">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5><a class="btn btn-primary" asp-controller="Items" asp-action="Details" asp-route-id="@items[i].Id">@items[i].Name</a></h5>
+                    <h5><a class="btn btn-primary btn-light" asp-controller="Items" asp-action="Details" asp-route-id="@items[i].Id">@items[i].Name</a></h5>
                 </div>
             </div>
         }
@@ -57,6 +52,8 @@
             Total purchases: @Model.TotalPurchases
         </h4>
     </div>
-</div>
+</div>  
+
+
 
 

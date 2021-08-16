@@ -18,6 +18,7 @@ namespace FurniturePlus.Models.Items
         public ItemSorting Sorting { get; init; }
         public int ItemsCount { get; set; }
         public IEnumerable<ItemListingViewModel> Items { get; set; }
+        public string VendorId { get; init; }
     }
 
 }

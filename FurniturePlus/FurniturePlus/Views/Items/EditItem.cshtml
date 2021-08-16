@@ -26,6 +26,7 @@
         <div class="form-group">
             <label asp-for="Description"></label>
             <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Description" class="small text-danger"></span>
         </div>
     </div>
     <div class="col-6">
@@ -43,6 +44,6 @@
         </div>
     </div>
     <div class="col-12">
-        <input class="btn btn-primary" type="submit" value="Save" />
+        <input class="btn btn-primary btn-light" type="submit" value="Save" />
     </div>
 </form>

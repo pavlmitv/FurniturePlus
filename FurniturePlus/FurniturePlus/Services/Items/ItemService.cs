@@ -1,5 +1,8 @@
-﻿using FurniturePlus.Data;
+﻿using FurniturePlus.Controllers;
+using FurniturePlus.Data;
+using FurniturePlus.Infrastructure;
 using FurniturePlus.Models.Items;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
 namespace FurniturePlus.Services.Items
@@ -13,8 +16,9 @@ namespace FurniturePlus.Services.Items
             this.data = data;
         }
 
-        public DetailsViewModel Details(int itemId)
+        public DetailsViewModel Details(int itemId, bool isEditable)
         {
+          
             return this.data
                     .Items
                     .Where(i => i.Id == itemId)
@@ -25,7 +29,8 @@ namespace FurniturePlus.Services.Items
                         PurchaseCode = i.PurchaseCode,
                         ImageUrl = i.ImageUrl,
                         Description = i.Description,
-                        Price = i.Price
+                        Price = i.Price,
+                        IsEditable = isEditable
                     })
                     .FirstOrDefault();
         }

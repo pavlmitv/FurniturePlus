@@ -31,6 +31,11 @@ namespace FurniturePlus.Controllers
                 itemQuery = itemQuery.Where(i => i.CategoryId.ToString() == query.CategoryId);
             }
 
+            if (!string.IsNullOrWhiteSpace(query.VendorId))
+            {
+                itemQuery = itemQuery.Where(i => i.VendorId.ToString() == query.VendorId);
+            }
+
             if (!string.IsNullOrWhiteSpace(query.SearchTerm))
             {
                 itemQuery = itemQuery
@@ -152,7 +157,7 @@ namespace FurniturePlus.Controllers
         {
             if (!this.IsSalesman())
             {
-                return BadRequest();
+                return RedirectToAction(nameof(SalesmenController.RegisterSalesman), "Salesmen");
             }
 
             var item = this.data
@@ -210,14 +215,25 @@ namespace FurniturePlus.Controllers
 
         public IActionResult Details(int id)    //parameter named "id" --> "id" in "asp-route-id" 
         {
-            var item = this.items.Details(id);
+            var isEditable = IsSalesman() ? (this.data
+               .Salesmen
+               .FirstOrDefault(s => s.UserId == this.User.GetId())
+               .VendorId
+               == this.data
+               .Items
+               .FirstOrDefault(i => i.Id == id)
+               .VendorId) : false;
+
+            var item = this.items.Details(id, isEditable);
             return View(item);
         }
 
-        private bool IsSalesman()
-            => this.data
-                .Salesmen
-                .Any(s => s.UserId == this.User.GetId());
+        public bool IsSalesman()
+        {
+            return this.data
+                        .Salesmen
+                        .Any(s => s.UserId == this.User.GetId());
+        }
 
         private IEnumerable<ItemCategoryViewModel> GetItemCategories()
         {

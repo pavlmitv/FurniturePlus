@@ -25,9 +25,9 @@
         </div>
     </p>
 </div>
-@if (@Model.IsEditable)
+@if (@Model.IsEditable || User.IsAdmin())
 {
-    <a asp-controller="Items" asp-action="EditItem" asp-route-id="@Model.Id" class="btn btn-primary btn-light">Edit</a>
+    <a asp-scontroller="Items" asp-action="EditItem" asp-route-id="@Model.Id" class="btn btn-primary btn-light">Edit</a>
 }
 
 

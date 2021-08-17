@@ -1,11 +1,12 @@
-﻿
-
-using FurniturePlus.Data;
+﻿using FurniturePlus.Data;
 using FurniturePlus.Data.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace FurniturePlus.Infrastructure
 {
@@ -13,30 +14,69 @@ namespace FurniturePlus.Infrastructure
     {
         public static IApplicationBuilder PrepareDatabase(this IApplicationBuilder app)
         {
-            using var scopedServices = app.ApplicationServices.CreateScope();
-            var data = scopedServices.ServiceProvider.GetService<FurniturePlusDbContext>();
+            using var serviceScope = app.ApplicationServices.CreateScope();
+            var services = serviceScope.ServiceProvider;
 
-            data.Database.Migrate();
-            SeedCategories(data);
+            MigrateDatabase(services);
+
+            SeedCategories(services);
+            SeedAdministrator(services);
+
             return app;
+        }
+        private static void MigrateDatabase(IServiceProvider services)
+        {
+            var data = services.GetRequiredService<FurniturePlusDbContext>();
+            data.Database.Migrate();
         }
 
         //to migrate the initial data - the furniture categories
-        private static void SeedCategories(FurniturePlusDbContext database)
+        private static void SeedCategories(IServiceProvider services)
         {
-            if (database.Categories.Any())
+            var data = services.GetRequiredService<FurniturePlusDbContext>();
+
+            if (data.Categories.Any())
             {
                 return;
             }
 
-            database.Categories.AddRange(new[]
+            data.Categories.AddRange(new[]
             {
                 new Category {Name = "Kitchen" },
                 new Category {Name = "Bedroom" },
                 new Category {Name = "Living room" },
             });
 
-            database.SaveChanges();
+            data.SaveChanges();
+        }
+
+        private static void SeedAdministrator(IServiceProvider services)
+        {
+            var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            Task
+                .Run(async () =>
+                {
+                    if (await roleManager.RoleExistsAsync("Administrator"))
+                    {
+                        return;
+                    }
+
+                    var role = new IdentityRole { Name = "Administrator" };
+                    await roleManager.CreateAsync(role);
+
+                    var user = new IdentityUser
+                    {
+                        Email = "admin@email.com"
+                    };
+
+                    await userManager.CreateAsync(user, "admin123");
+
+                    await userManager.AddToRoleAsync(user, role.Name);
+                })
+                .GetAwaiter()
+                .GetResult();
         }
     }
 }

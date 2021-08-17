@@ -92,7 +92,7 @@ namespace FurniturePlus.Controllers
         [Authorize]
         public IActionResult AddItem()
         {
-            if (!this.IsSalesman())
+            if (!this.IsSalesman() && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(SalesmenController.RegisterSalesman), "Salesmen");
             }
@@ -155,7 +155,7 @@ namespace FurniturePlus.Controllers
         [Authorize]
         public IActionResult EditItem(int id)
         {
-            if (!this.IsSalesman())
+            if (!this.IsSalesman() && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(SalesmenController.RegisterSalesman), "Salesmen");
             }

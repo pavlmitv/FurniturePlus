@@ -1,21 +1,16 @@
 ﻿@*задаваме модела и асоциирането ще стане чрез Model binding-а*@
 @model AddItemFormModel
 
-@{
-    ViewData["Title"] = "Add furniture";    /*заглавие за tab-а*/
-
-   
-}
+@{ ViewData["Title"] = "Add furniture";    /*заглавие за tab-а*/ }
 
 <form method="post">
     <div class="col-6">
         <div class="form-group">
             <label asp-for="CategoryId"></label>
             <select asp-for="CategoryId" class="form-control">
-               @foreach (var category in Model.ItemCategories)
-               {
-                   <option value="@category.Id">@category.Name</option>
-               }
+                @foreach (var category in Model.ItemCategories)
+                {
+    <option value="@category.Id">@category.Name</option>}
             </select>
         </div>
     </div>
@@ -47,12 +42,16 @@
         </div>
     </div>
     @*<div class="col-6">
-        <div class="form-group">
-            <label asp-for="PurchaseCode"></label>
-            <input asp-for="PurchaseCode" class="form-control" placeholder=@purchaseCodeString readonly />
-        </div>
-    </div>*@
+            <div class="form-group">
+                <label asp-for="PurchaseCode"></label>
+                <input asp-for="PurchaseCode" class="form-control" placeholder=@purchaseCodeString readonly />
+            </div>
+        </div>*@
     <div class="col-12">
         <input class="btn btn-primary btn-light" type="submit" value="Add" />
     </div>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

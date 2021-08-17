@@ -6,7 +6,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
 
-        <partial name="_RegisterSalesmanPartial" />
+        <partial name="_LoggedUserPagesPartial" />
 
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>

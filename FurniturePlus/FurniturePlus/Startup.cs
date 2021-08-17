@@ -40,7 +40,9 @@ namespace FurniturePlus
                 options.Password.RequireLowercase = false;
                 // options.SignIn.RequireConfirmedAccount = true;
             })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<FurniturePlusDbContext>();
+
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();

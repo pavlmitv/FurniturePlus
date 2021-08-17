@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FurniturePlus.Data
 {
-    public class FurniturePlusDbContext : IdentityDbContext
+    public class FurniturePlusDbContext : IdentityDbContext<IdentityUser>
     {
         public FurniturePlusDbContext(DbContextOptions<FurniturePlusDbContext> options)
             : base(options)

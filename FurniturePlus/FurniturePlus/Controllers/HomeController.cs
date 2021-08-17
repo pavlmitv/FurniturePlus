@@ -18,6 +18,7 @@ namespace FurniturePlus.Controllers
         public IActionResult Index()
         {
             var totalItems = this.data.Items.Count();
+            var totalVendors = this.data.Vendors.Count();
 
             var items = this.data
                     .Items
@@ -35,7 +36,8 @@ namespace FurniturePlus.Controllers
             return View(new IndexViewModel
             {
                 TotalItems = totalItems,
-                Items = items
+                Items = items,
+                TotalVendors = totalVendors
             });
         }
 

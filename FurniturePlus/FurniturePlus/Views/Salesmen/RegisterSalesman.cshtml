@@ -1,8 +1,6 @@
 ﻿@model RegisterSalesmanFormModel
 
-@{
-    ViewData["Title"] = "Register salesman";
-}
+@{ ViewData["Title"] = "Register salesman"; }
 
 <form method="post">
     <p class="text-danger">You need to be a registered salesman in order to add new furniture.</p> @*TODO: show only when the view is reached from IActionResult Add()*@
@@ -14,8 +12,7 @@
             <select asp-for="VendorId" class="form-control">
                 @foreach (var vendor in Model.SalesmanVendors)
                 {
-                    <option value="@vendor.Id">@vendor.Name</option>
-                }
+    <option value="@vendor.Id">@vendor.Name</option>}
             </select>
         </div>
     </div>
@@ -44,3 +41,7 @@
         <input class="btn btn-primary btn-light" type="submit" value="Register" />
     </div>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

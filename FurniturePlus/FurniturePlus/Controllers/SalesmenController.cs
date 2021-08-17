@@ -77,6 +77,7 @@ namespace FurniturePlus.Controllers
 
             return data
                 .Vendors
+                .Where(v=>v.IsApproved==true)
                 .Select(v => new SalesmanVendorViewModel
                 {
                     Id = v.Id,

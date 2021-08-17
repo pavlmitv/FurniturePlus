@@ -35,7 +35,8 @@ namespace FurniturePlus.Controllers
                 Address = vendor.Address,
                 Phone = vendor.Phone,
                 Email = vendor.Email,
-                VATNumber = vendor.VATNumber
+                VATNumber = vendor.VATNumber,
+                IsApproved = false
                 //TODO: Items counter to generate item codes
             };
             this.data.Vendors.Add(newVendor);

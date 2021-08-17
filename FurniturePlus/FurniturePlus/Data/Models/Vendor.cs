@@ -22,6 +22,7 @@ namespace FurniturePlus.Data.Models
         public string VATNumber { get; init; }
         public IEnumerable<Item> Items { get; init; }
         public IEnumerable<Salesman> Salesmen { get; init; }
+        public bool IsApproved { get; set; }
 
     }
 }

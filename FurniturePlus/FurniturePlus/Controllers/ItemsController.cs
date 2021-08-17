@@ -149,9 +149,7 @@ namespace FurniturePlus.Controllers
 
             return RedirectToAction(nameof(All));
         }
-        //------------------
-
-
+      
         [Authorize]
         public IActionResult EditItem(int id)
         {
@@ -176,8 +174,6 @@ namespace FurniturePlus.Controllers
                 Price = item.Price,
                 ItemCategories = this.GetItemCategories()
             });
-
-
         }
 
         [HttpPost]
@@ -208,10 +204,10 @@ namespace FurniturePlus.Controllers
 
             this.data.SaveChanges();
 
-            return RedirectToAction(nameof(Details), new { id });   //TODO: Redirect to /Details
+            return RedirectToAction(nameof(Details), new { id });
         }
 
-        //------------------
+    
 
         public IActionResult Details(int id)    //parameter named "id" --> "id" in "asp-route-id" 
         {

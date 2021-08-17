@@ -1,0 +1,63 @@
+﻿@model List<VendorDetailsModel>
+
+
+
+<div class="list-group-item active text-center">
+    Vendors waiting for approval
+</div>
+
+<table class="table table-hover border-bottom">
+
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">E-Mail</th>
+            <th scope="col">VAT Number</th>
+            <th scope="col" class="col-2"></th>
+        </tr>
+    </thead>
+    @*<tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+
+                <tr>
+                    <th scope="row">@(i+1)</th>
+                    <td>@Model[i].Name</td>
+                    <td>@Model[i].Address</td>
+                    <td>@Model[i].Phone</td>
+                    <td>@Model[i].Email</td>
+                    <td>@Model[i].VATNumber</td>
+                    <td>
+                        <a asp-area="" asp-controller="Requests" asp-action="Approve" asp-route-id="@Model[i].Id" class="btn btn-primary btn-outline-success offset-5" type="submit">Approve</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Requests" asp-action="Decline" asp-route-id="@Model[i].Id" class="btn btn-primary btn-danger" type="submit">Decline</a>
+                    </td>
+                </tr>
+            }
+        </tbody>*@
+
+<tbody>
+    @foreach (var vendor in Model)
+    {
+        <tr>
+            <th scope="row"></th>
+            <td>@vendor.Name</td>
+            <td>@vendor.Address</td>
+            <td>@vendor.Phone</td>
+            <td>@vendor.Email</td>
+            <td>@vendor.VATNumber</td>
+            <td>
+                <a asp-area="" asp-controller="Requests" asp-action="Approve" asp-route-id="@vendor.Id" class="btn btn-primary btn-outline-success offset-5" type="submit">Approve</a>
+            </td>
+            <td>
+                <a asp-area="" asp-controller="Requests" asp-action="Decline" asp-route-id="@vendor.Id" class="btn btn-primary btn-danger" type="submit">Decline</a>
+            </td>
+        </tr>
+    }
+   
+</tbody>
+</table>

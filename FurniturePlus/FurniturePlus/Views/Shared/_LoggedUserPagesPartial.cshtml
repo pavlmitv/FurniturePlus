@@ -3,24 +3,19 @@
 
 @if (!data.Salesmen.Any(s => s.UserId == this.User.GetId()))
 {
+    if (User.IsAdmin())
+    {
+<li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Requests" asp-action="Requests">Requests</a>
+</li> }
+
 <li class="nav-item">
     <a class="nav-link text-dark" asp-area="" asp-controller="Vendors" asp-action="AddVendor">Register new vendor</a>
-</li>
-
-if (!User.IsAdmin())
+</li> if (!User.IsAdmin())
                 {
 <li class="nav-item">
     <a class="nav-link text-dark" asp-area="" asp-controller="Salesmen" asp-action="RegisterSalesman">Register as salesman</a>
 </li>}
-if (User.IsAdmin())
-{
-
-< li class="nav-item">
-<a class="nav-link text-dark" asp-area="" asp-controller="Salesmen" asp-action="RegisterSalesman">Register as salesman</a>
-</li>
-
-}
-
 
 
 }

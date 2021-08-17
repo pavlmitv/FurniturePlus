@@ -26,6 +26,6 @@ namespace FurniturePlus.Data.Models
         [Required]
         [Column(TypeName ="decimal(7,2)")]
         public decimal Price { get; set; }
-        public bool IsApproved { get; init; }
+       
     }
 }

@@ -23,8 +23,6 @@ namespace FurniturePlus.Controllers
             this.salesmen = salesmen;
         }
 
-
-
         [Authorize(Roles = "Administrator")]
         public IActionResult Requests()
         {
@@ -66,54 +64,31 @@ namespace FurniturePlus.Controllers
             return View(request);
         }
 
-
-        //[Authorize(Roles = "Administrator")]
-        //public IActionResult Requests()
-        //{
-        //    var pendingVendors = this.data
-        //         .Vendors
-        //         .Where(v => v.IsApproved == false)
-        //         .Select(v => new VendorDetailsModel
-        //         {
-        //             Id = v.Id,
-        //             Name = v.Name,
-        //             Address = v.Address,
-        //             Phone = v.Phone,
-        //             Email = v.Email,
-        //             VATNumber = v.VATNumber,
-        //             IsApproved = v.IsApproved
-        //         })
-        //         .ToList();
-
-        //    var pendingSalesmen = this.data
-        //        .Salesmen
-        //        .Where(s => s.IsApproved == false)
-        //        .Select(s => new SalesmanDetailsModel
-        //        {
-        //            Id = s.Id,
-        //            FirstName = s.FirstName,
-        //            LastName = s.LastName,
-        //            PhoneNumber = s.PhoneNumber,
-        //            VendorName = s.Vendor.Name,
-        //            IsApproved = s.IsApproved
-        //        })
-        //        .ToList();
-
-        //    return View(pendingSalesmen);
-        //}
-
-
         [Authorize(Roles = "Administrator")]
-        public IActionResult Approve(int id)
+        public IActionResult ApproveVendor(int id)
         {
-            this.vendors.Approve(id);
+            this.vendors.ApproveVendor(id);
             return RedirectToAction(nameof(Requests), nameof(Requests));
         }
 
         [Authorize(Roles = "Administrator")]
-        public IActionResult Decline(int id)
+        public IActionResult DeclineVendor(int id)
         {
-            this.vendors.Decline(id);
+            this.vendors.DeclineVendor(id);
+            return RedirectToAction(nameof(Requests), nameof(Requests));
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public IActionResult ApproveSalesman(int id)
+        {
+            this.salesmen.ApproveSalesman(id);
+            return RedirectToAction(nameof(Requests), nameof(Requests));
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public IActionResult DeclineSalesman(int id)
+        {
+            this.salesmen.DeclineSalesman(id);
             return RedirectToAction(nameof(Requests), nameof(Requests));
         }
     }

@@ -12,14 +12,14 @@ namespace FurniturePlus.Services.Vendors
             this.data = data;
         }
 
-        public void Approve(int vendorId)
+        public void ApproveVendor(int vendorId)
         {
             var vendor = this.data.Vendors.Find(vendorId);
             vendor.IsApproved = true;
             this.data.SaveChanges();
         }
 
-        public void Decline(int vendorId)
+        public void DeclineVendor(int vendorId)
         {
             var vendor = this.data.Vendors.Find(vendorId);
             this.data.Vendors.Remove(vendor);

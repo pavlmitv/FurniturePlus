@@ -1,6 +1,7 @@
 using FurniturePlus.Data;
 using FurniturePlus.Infrastructure;
 using FurniturePlus.Services.Items;
+using FurniturePlus.Services.Salesmen;
 using FurniturePlus.Services.Vendors;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -51,6 +52,7 @@ namespace FurniturePlus
 
             services.AddTransient<IItemService, ItemService>();
             services.AddTransient<IVendorService, VendorService>();
+            services.AddTransient<ISalesmanService, SalesmanService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

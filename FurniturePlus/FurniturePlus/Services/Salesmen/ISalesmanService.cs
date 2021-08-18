@@ -2,7 +2,7 @@
 {
     public interface ISalesmanService
     {
-        void Approve(int salesmanId);
-        void Decline(int salesmanId);
+        void ApproveSalesman(int salesmanId);
+        void DeclineSalesman(int salesmanId);
     }
 }

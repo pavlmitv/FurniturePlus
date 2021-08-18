@@ -3,7 +3,8 @@
 @{ ViewData["Title"] = "Register salesman"; }
 
 <form method="post">
-    <p class="text-danger">You need to be a registered salesman in order to add new furniture.</p> @*TODO: show only when the view is reached from IActionResult Add()*@
+    <p class="text-danger text-center">You need to be a registered salesman in order to add new furniture or edit existing furniture.
+    <br />If you have already sent a request, please wait for an approval from Administrator.</p>@*TODO: show only when the view is reached from IActionResult Add()*@
     <h2>Registration form</h2>
     <hr />
     <div class="col-6">

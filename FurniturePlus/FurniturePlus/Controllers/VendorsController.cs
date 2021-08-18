@@ -37,7 +37,6 @@ namespace FurniturePlus.Controllers
                 Email = vendor.Email,
                 VATNumber = vendor.VATNumber,
                 IsApproved = false
-                //TODO: Items counter to generate item codes
             };
             this.data.Vendors.Add(newVendor);
             this.data.SaveChanges();

@@ -50,7 +50,7 @@ namespace FurniturePlus.Controllers
 
             if (userIsAlreadySalesman)
             {
-                return BadRequest();
+                return BadRequest("You either have already registered as a salesman or you've sent a request and should wait for an approval from Administrator.");
             }
 
             var newSalesman = new Salesman
@@ -63,7 +63,8 @@ namespace FurniturePlus.Controllers
                 Vendor = this.data
                 .Vendors
                 .Where(v => v.Id == salesman.VendorId)
-                .FirstOrDefault()
+                .FirstOrDefault(),
+                IsApproved = false
             };
 
             this.data.Salesmen.Add(newSalesman);
@@ -74,7 +75,6 @@ namespace FurniturePlus.Controllers
 
         private IEnumerable<SalesmanVendorViewModel> GetVendors()
         {
-
             return data
                 .Vendors
                 .Where(v=>v.IsApproved==true)

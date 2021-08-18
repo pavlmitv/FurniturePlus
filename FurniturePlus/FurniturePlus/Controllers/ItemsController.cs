@@ -149,7 +149,7 @@ namespace FurniturePlus.Controllers
 
             return RedirectToAction(nameof(All));
         }
-      
+
         [Authorize]
         public IActionResult EditItem(int id)
         {
@@ -207,18 +207,19 @@ namespace FurniturePlus.Controllers
             return RedirectToAction(nameof(Details), new { id });
         }
 
-    
+
 
         public IActionResult Details(int id)    //parameter named "id" --> "id" in "asp-route-id" 
         {
-            var isEditable = IsSalesman() ? (this.data
-               .Salesmen
-               .FirstOrDefault(s => s.UserId == this.User.GetId())
-               .VendorId
-               == this.data
-               .Items
-               .FirstOrDefault(i => i.Id == id)
-               .VendorId) : false;
+            var isEditable = IsSalesman()
+                && (this.data
+                      .Salesmen
+                      .FirstOrDefault(s => s.UserId == this.User.GetId())
+                      .VendorId
+                      == this.data
+                      .Items
+                      .FirstOrDefault(i => i.Id == id)
+                      .VendorId);
 
             var item = this.items.Details(id, isEditable);
             return View(item);
@@ -226,9 +227,9 @@ namespace FurniturePlus.Controllers
 
         public bool IsSalesman()
         {
-            return this.data
-                        .Salesmen
-                        .Any(s => s.UserId == this.User.GetId());
+            return this.data.Salesmen.Any(s => s.UserId == this.User.GetId())
+                    ? this.data.Salesmen.FirstOrDefault(s => s.UserId == this.User.GetId()).IsApproved
+                    : false;
         }
 
         private IEnumerable<ItemCategoryViewModel> GetItemCategories()

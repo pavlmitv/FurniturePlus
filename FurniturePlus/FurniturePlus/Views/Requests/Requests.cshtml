@@ -1,4 +1,7 @@
-﻿@model List<VendorDetailsModel>
+﻿@*@model List<VendorDetailsModel>*@
+@using FurniturePlus.Models.Requests
+ 
+@model RequestsViewModel
 
 @{ ViewData["Title"] = "Requests"; }
 
@@ -24,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var vendor in Model)
+        @foreach (var vendor in Model.Vendors)
         {
             counter++;
             <tr>

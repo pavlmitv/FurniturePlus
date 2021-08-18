@@ -22,6 +22,8 @@ namespace FurniturePlus.Data.Models
         public Vendor Vendor { get; init; }
         [Required]
         public int VendorId { get; init; }
+        public bool IsApproved { get; set; }
+
 
 
     }

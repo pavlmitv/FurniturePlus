@@ -1,4 +1,5 @@
 ﻿using FurniturePlus.Data;
+using System.Linq;
 
 namespace FurniturePlus.Services.Vendors
 {
@@ -15,6 +16,14 @@ namespace FurniturePlus.Services.Vendors
         {
             var vendor = this.data.Vendors.Find(vendorId);
             vendor.IsApproved = true;
+            this.data.SaveChanges();
+        }
+
+        public void Decline(int vendorId)
+        {
+            var vendor = this.data.Vendors.Find(vendorId);
+            this.data.Vendors.Remove(vendor);
+
             this.data.SaveChanges();
         }
     }

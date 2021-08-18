@@ -8,5 +8,6 @@ namespace FurniturePlus.Services.Vendors
     public interface IVendorService
     {
         void Approve(int vendorId);
+        void Decline(int vendorId);
     }
 }

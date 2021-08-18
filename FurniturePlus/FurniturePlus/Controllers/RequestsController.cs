@@ -39,32 +39,19 @@ namespace FurniturePlus.Controllers
             return View(pendingVendors);
         }
 
+
+        [Authorize(Roles = "Administrator")]
         public IActionResult Approve(int id)
         {
             this.vendors.Approve(id);
             return RedirectToAction(nameof(Requests), nameof(Requests));
         }
 
-        //[HttpPost]
-        //[Authorize(Roles = "Administrator")]
-        //[AutoValidateAntiforgeryToken]
-        //public IActionResult Approve(VendorDetailsModel vendor, int id)
-        //{
-        //    var currentVendor = this.data
-        //         .Vendors
-        //         .FirstOrDefault(v => v.Id == id);
-
-        //    currentVendor.IsApproved = vendor.IsApproved;
-
-        //    this.data.SaveChanges();
-
-        //    return RedirectToAction("Requests", "Requests");
-
-        //}
-
-        //public IActionResult Decline()
-        //{
-
-        //}
+        [Authorize(Roles = "Administrator")]
+        public IActionResult Decline(int id)
+        {
+            this.vendors.Decline(id);
+            return RedirectToAction(nameof(Requests), nameof(Requests));
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace FurniturePlus.Models.Items
 {
     public class ItemSearchModel
     {
-        public const int ItemsPerPage = 2;
+        public const int ItemsPerPage = 3;
         public int CurrentPage { get; init; } = 1;
         [Display(Name = "Search by category:")]
         public string CategoryId { get; set; }

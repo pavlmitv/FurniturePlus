@@ -1,5 +1,4 @@
-﻿
-using FurniturePlus.Data.Models;
+﻿using FurniturePlus.Data.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using static FurniturePlus.Data.Models.Constants.Vendor;

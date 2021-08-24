@@ -1,37 +1,28 @@
-﻿using FurniturePlus.Data;
-using FurniturePlus.Models;
+﻿using FurniturePlus.Models;
 using FurniturePlus.Models.Home;
+using FurniturePlus.Services.Items;
+using FurniturePlus.Services.Vendors;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Linq;
 
 namespace FurniturePlus.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly FurniturePlusDbContext data;
+        private readonly IItemService items;
+        private readonly IVendorService vendors;
 
-        public HomeController(FurniturePlusDbContext data)
+        public HomeController(IItemService items, IVendorService vendors)
         {
-            this.data = data;
+            this.items = items;
+            this.vendors = vendors;
         }
         public IActionResult Index()
         {
-            var totalItems = this.data.Items.Count();
-            var totalVendors = this.data.Vendors.Count();
+            var totalItems = this.items.ItemsCount();
+            var totalVendors = this.vendors.VendorsCount();
 
-            var items = this.data
-                    .Items
-                    .Select(i => new ItemIndexViewModel
-                    {
-                        Id = i.Id,
-                        Name = i.Name,
-                        PurchaseCode = i.PurchaseCode,
-                        ImageUrl = i.ImageUrl,
-                        Description = i.Description,
-                        Price = i.Price
-                    })
-                    .ToList();
+            var items = this.items.GetAllItemsForHomePage();
 
             return View(new IndexViewModel
             {

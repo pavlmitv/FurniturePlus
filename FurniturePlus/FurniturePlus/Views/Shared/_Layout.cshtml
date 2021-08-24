@@ -24,9 +24,13 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (SignInManager.IsSignedIn(User))
                         {
+                            @if (!User.IsAdmin())
+                            {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="AddItem">Add furniture</a>
                             </li>
+                            }
+
                         }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Items" asp-action="All">Browse furniture</a>      @*от ItemsController-> asp.net го разпознава*@

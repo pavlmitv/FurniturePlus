@@ -30,7 +30,7 @@ namespace FurniturePlus.Infrastructure
             data.Database.Migrate();
         }
 
-        //to migrate the initial data - the furniture categories
+        //migrate initial data
         private static void SeedCategories(IServiceProvider services)
         {
             var data = services.GetRequiredService<FurniturePlusDbContext>();
@@ -55,6 +55,8 @@ namespace FurniturePlus.Infrastructure
             var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
+            // roleManager.RoleExistsAsync()  // --> to avoid async operations, we will use task.Run().GetAwaiter()..
+            
             Task
                 .Run(async () =>
                 {

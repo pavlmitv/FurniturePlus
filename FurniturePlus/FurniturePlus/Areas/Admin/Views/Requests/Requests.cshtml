@@ -1,0 +1,90 @@
+﻿@*@model List<VendorDetailsModel>*@
+@using FurniturePlus.Areas.Admin.Models.Requests
+
+@model RequestsViewModel
+
+@{ ViewData["Title"] = "Requests"; }
+
+@{
+    var vendorsCounter = 0;
+    var salesmenCounter = 0;
+}
+
+<div class="list-group-item active text-center">
+    Vendors waiting for approval
+</div>
+
+<table class="table table-hover border-bottom">
+
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">E-Mail</th>
+            <th scope="col">VAT Number</th>
+            <th scope="col" class="col-2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vendor in Model.Vendors)
+        {
+            vendorsCounter++;
+            <tr>
+                <th scope="row">@vendorsCounter</th>
+                <td>@vendor.Name</td>
+                <td>@vendor.Address</td>
+                <td>@vendor.Phone</td>
+                <td>@vendor.Email</td>
+                <td>@vendor.VATNumber</td>
+                <td>
+                    <a asp-area="Admin" asp-controller="Requests" asp-action="ApproveVendor" asp-route-id="@vendor.Id" class="btn btn-primary btn-outline-success offset-5">Approve</a>
+                </td>
+                <td>
+                    <a asp-area="Admin" asp-controller="Requests" asp-action="DeclineVendor" asp-route-id="@vendor.Id" class="btn btn-primary btn-outline-danger">Decline</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+<br />
+
+<div class="list-group-item active text-center">
+    Salesmen waiting for approval
+</div>
+
+<table class="table table-hover border-bottom">
+
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">FirstName</th>
+            <th scope="col">LastName</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Vendor</th>
+            <th scope="col" class="col-2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var salesman in Model.Salesmen)
+        {
+            salesmenCounter++;
+            <tr>
+                <th scope="row">@salesmenCounter</th>
+                <td>@salesman.FirstName</td>
+                <td>@salesman.LastName</td>
+                <td>@salesman.PhoneNumber</td>
+                <td>@salesman.VendorName</td>
+                <td>
+                    <a asp-area="" asp-controller="Requests" asp-action="ApproveSalesman" asp-route-id="@salesman.Id" class="btn btn-primary btn-outline-success offset-8">Approve</a>
+                </td>
+                <td>
+                    <a asp-area="" asp-controller="Requests" asp-action="DeclineSalesman" asp-route-id="@salesman.Id" class="btn btn-primary btn-outline-danger offset-4">Decline</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

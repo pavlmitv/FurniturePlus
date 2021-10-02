@@ -7,7 +7,7 @@ using FurniturePlus.Areas.Admin.Models.Requests;
 namespace FurniturePlus.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class RequestsController : Controller
+    public class RequestsController : AdminController
     {
         private readonly IVendorService vendors;
         private readonly ISalesmanService salesmen;

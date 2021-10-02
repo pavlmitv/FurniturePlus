@@ -55,7 +55,7 @@ namespace FurniturePlus.Infrastructure
             var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-            // roleManager.RoleExistsAsync()  // --> to avoid async operations, we will use task.Run().GetAwaiter()..
+            // roleManager.RoleExistsAsync()  // --> to avoid async operations, we can use task.Run().GetAwaiter()..
             
             Task
                 .Run(async () =>

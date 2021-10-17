@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using FurniturePlus.Infrastructure;
 namespace FurniturePlus.Services.Vendors
 {
-    public class SalesmanService : Controller, ISalesmanService
+    public class SalesmanService : ISalesmanService
     {
         private readonly FurniturePlusDbContext data;
 

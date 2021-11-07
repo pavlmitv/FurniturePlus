@@ -37,56 +37,82 @@ namespace FurniturePlus.Controllers
 
             return View(new AddItemFormModel
             {
-                ItemCategories = this.GetItemCategories()
+            ItemCategories =  this.items.GetItemCategories()
             });
         }
+
+        //[HttpPost]
+        //[Authorize]
+        //[AutoValidateAntiforgeryToken]
+        ////Model binding: ASP.NET core ще попълни модела (AddItemFormModel item) с данните от request-a и ще върне view
+        //public IActionResult AddItem(AddItemFormModel item)
+        //{
+        //    if (!this.data.Categories.Any(c => c.Id == item.CategoryId))
+        //    {
+        //        this.ModelState.AddModelError(nameof(item.CategoryId), "Category does not exist.");
+        //    }
+        //    if (!ModelState.IsValid)
+        //    {
+        //        item.ItemCategories = this.GetItemCategories();
+        //        return View(item);
+        //    }
+
+        //    var itemVendor = this.data
+        //        .Vendors
+        //        .Where(v => v.Id == this.data
+        //        .Salesmen
+        //        .Where(s => s.UserId == this.User.GetId())
+        //        .FirstOrDefault()
+        //        .VendorId)
+        //        .FirstOrDefault();
+
+        //    //Purchase Code = first 3 letters from Vendor's name + random 6 digits number;
+        //    var rnd = new Random();
+        //    var purchaseCode = itemVendor.Name.Substring(0, 3).ToUpper() + (rnd.Next(0, 1000000).ToString("D6"));
+
+        //    var newItem = new Item
+        //    {
+        //        Id = item.Id,
+        //        Name = item.Name,
+        //        PurchaseCode = purchaseCode,
+        //        Category = item.Category,
+        //        CategoryId = item.CategoryId,
+        //        Vendor = itemVendor,
+        //        ImageUrl = item.ImageUrl,
+        //        Description = item.Description,
+        //        Price = item.Price
+        //    };
+        //    this.data.Items.Add(newItem);
+        //    this.data.SaveChanges();
+
+        //    return RedirectToAction(nameof(All));
+        //}
 
         [HttpPost]
         [Authorize]
         [AutoValidateAntiforgeryToken]
-        //Model binding: ASP.NET core ще попълни модела (AddItemFormModel item) с данните от request-a и ще върне view
         public IActionResult AddItem(AddItemFormModel item)
         {
-            if (!this.data.Categories.Any(c => c.Id == item.CategoryId))
+            if (!this.items.DoesCategoryExist(item))
             {
                 this.ModelState.AddModelError(nameof(item.CategoryId), "Category does not exist.");
             }
             if (!ModelState.IsValid)
             {
-                item.ItemCategories = this.GetItemCategories();
+                item.ItemCategories = this.items.GetItemCategories();
                 return View(item);
             }
 
-            var itemVendor = this.data
-                .Vendors
-                .Where(v => v.Id == this.data
-                .Salesmen
-                .Where(s => s.UserId == this.User.GetId())
-                .FirstOrDefault()
-                .VendorId)
-                .FirstOrDefault();
-
-            //Purchase Code = first 3 letters from Vendor's name + random 6 digits number;
-            var rnd = new Random();
-            var purchaseCode = itemVendor.Name.Substring(0, 3).ToUpper() + (rnd.Next(0, 1000000).ToString("D6"));
-
-            var newItem = new Item
+            var currentUserId = "";
+            if (IsAuthenticated())
             {
-                Id = item.Id,
-                Name = item.Name,
-                PurchaseCode = purchaseCode,
-                Category = item.Category,
-                CategoryId = item.CategoryId,
-                Vendor = itemVendor,
-                ImageUrl = item.ImageUrl,
-                Description = item.Description,
-                Price = item.Price
-            };
-            this.data.Items.Add(newItem);
-            this.data.SaveChanges();
-
+                currentUserId = this.User.GetId();
+            }
+      
+            this.items.AddItem(item, currentUserId);
             return RedirectToAction(nameof(All));
         }
+
 
         [Authorize]
         public IActionResult EditItem(int id)

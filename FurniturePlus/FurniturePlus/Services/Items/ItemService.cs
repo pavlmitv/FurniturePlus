@@ -1,11 +1,14 @@
 ﻿using FurniturePlus.Controllers;
 using FurniturePlus.Data;
+using FurniturePlus.Data.Models;
 using FurniturePlus.Infrastructure;
 using FurniturePlus.Models.Home;
 using FurniturePlus.Models.Items;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using FurniturePlus.Services.Salesmen;
 
 namespace FurniturePlus.Services.Items
 {
@@ -111,6 +114,42 @@ namespace FurniturePlus.Services.Items
                     })
                     .FirstOrDefault();
         }
+        public bool DoesCategoryExist (AddItemFormModel item)
+        {
+            return this.data.Categories.Any(c => c.Id == item.CategoryId);
+        }
+
+        public void AddItem(AddItemFormModel item, string currentUserId)
+        {
+            var itemVendor = this.data
+                .Vendors
+                .Where(v => v.Id == this.data
+                .Salesmen
+                .Where(s => s.UserId == currentUserId)
+                .FirstOrDefault()
+                .VendorId)
+                .FirstOrDefault();
+
+            //Purchase Code = first 3 letters from Vendor's name + random 6 digits number;
+            var rnd = new Random();
+            var purchaseCode = itemVendor.Name.Substring(0, 3).ToUpper() + (rnd.Next(0, 1000000).ToString("D6"));
+
+            var newItem = new Item
+            {
+                Id = item.Id,
+                Name = item.Name,
+                PurchaseCode = purchaseCode,
+                Category = item.Category,
+                CategoryId = item.CategoryId,
+                Vendor = itemVendor,
+                ImageUrl = item.ImageUrl,
+                Description = item.Description,
+                Price = item.Price,
+            };
+            this.data.Items.Add(newItem);
+            this.data.SaveChanges();
+        }
+
 
         public List<ItemIndexViewModel> GetAllItemsForHomePage()
         {
@@ -133,7 +172,7 @@ namespace FurniturePlus.Services.Items
             return this.data.Items.Count();
         }
 
-        private IEnumerable<ItemCategoryViewModel> GetItemCategories()
+        public IEnumerable<ItemCategoryViewModel> GetItemCategories()
         {
             return data
                 .Categories
@@ -144,5 +183,6 @@ namespace FurniturePlus.Services.Items
                 })
                 .ToList();
         }
+
     }
 }

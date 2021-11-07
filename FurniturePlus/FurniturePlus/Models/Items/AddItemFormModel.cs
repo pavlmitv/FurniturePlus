@@ -28,6 +28,7 @@ namespace FurniturePlus.Models.Items
         [Column(TypeName = "decimal(7,2)")]     //is this applicable here or only for the database validations?
         public decimal Price { get; init; }
         public IEnumerable<ItemCategoryViewModel> ItemCategories { get; set; }
+        public bool DoesCategoryExist { get; set; }
 
 
     }

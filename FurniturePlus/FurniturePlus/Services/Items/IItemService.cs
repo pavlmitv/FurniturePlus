@@ -1,4 +1,5 @@
-﻿using FurniturePlus.Models.Home;
+﻿using FurniturePlus.Data.Models;
+using FurniturePlus.Models.Home;
 using FurniturePlus.Models.Items;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -13,7 +14,8 @@ namespace FurniturePlus.Services.Items
         List<ItemIndexViewModel> GetAllItemsForHomePage();
         void AddItem(AddItemFormModel item, string currentUserId);
         IEnumerable<ItemCategoryViewModel> GetItemCategories();
-        bool DoesCategoryExist(AddItemFormModel item);
-
+        bool DoesCategoryExist(int itemId);
+        EditItemFormModel EditItem(int itemId);
+        void EditItem(EditItemFormModel item);
     }
 }

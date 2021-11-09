@@ -1,14 +1,11 @@
-﻿using FurniturePlus.Controllers;
-using FurniturePlus.Data;
+﻿using FurniturePlus.Data;
 using FurniturePlus.Data.Models;
-using FurniturePlus.Infrastructure;
 using FurniturePlus.Models.Home;
 using FurniturePlus.Models.Items;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using FurniturePlus.Services.Salesmen;
 
 namespace FurniturePlus.Services.Items
 {
@@ -114,10 +111,7 @@ namespace FurniturePlus.Services.Items
                     })
                     .FirstOrDefault();
         }
-        public bool DoesCategoryExist (AddItemFormModel item)
-        {
-            return this.data.Categories.Any(c => c.Id == item.CategoryId);
-        }
+
 
         public void AddItem(AddItemFormModel item, string currentUserId)
         {
@@ -184,5 +178,53 @@ namespace FurniturePlus.Services.Items
                 .ToList();
         }
 
+        public bool DoesCategoryExist(int itemId)
+        {
+            return this.data.Categories.Any(c => c.Id == this.data
+            .Items
+            .FirstOrDefault(i => i.Id == itemId)
+            .CategoryId);
+        }
+
+        public Item GetItem(int id)
+        {
+            return this.data
+                .Items.FirstOrDefault(i => i.Id == id);
+        }
+
+        public EditItemFormModel EditItem(int itemId)
+        {
+            var item = this.data
+                .Items
+                .FirstOrDefault(i => i.Id == itemId);
+            return new EditItemFormModel
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Category = item.Category,
+                    CategoryId = item.CategoryId,
+                    Vendor = item.Vendor,
+                    ImageUrl = item.ImageUrl,
+                    Description = item.Description,
+                    Price = item.Price,
+                    ItemCategories = this.GetItemCategories()
+                };
+                
+        }
+
+        public void EditItem(EditItemFormModel item)
+        {
+            var currentItem = this.data
+                .Items
+                .FirstOrDefault(i => i.Id == item.Id);
+
+            // currentItem.Category = item.Category;
+            currentItem.Name = item.Name;
+            currentItem.Description = item.Description;
+            currentItem.ImageUrl = item.ImageUrl;
+            currentItem.Price = item.Price;
+
+            this.data.SaveChanges();
+        }
     }
 }

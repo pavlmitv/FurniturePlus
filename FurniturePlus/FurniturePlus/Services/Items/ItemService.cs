@@ -124,7 +124,7 @@ namespace FurniturePlus.Services.Items
                 .VendorId)
                 .FirstOrDefault();
 
-            //Purchase Code = first 3 letters from Vendor's name + random 6 digits number;
+            //Purchase Code = first 3 letters of Vendor's name + random 6 digits number;
             var rnd = new Random();
             var purchaseCode = itemVendor.Name.Substring(0, 3).ToUpper() + (rnd.Next(0, 1000000).ToString("D6"));
 
@@ -178,12 +178,16 @@ namespace FurniturePlus.Services.Items
                 .ToList();
         }
 
-        public bool DoesCategoryExist(int itemId)
+        //public bool DoesCategoryExist(int itemId)
+        //{
+        //    return this.data.Categories.Any(c => c.Id == this.data
+        //    .Items
+        //    .FirstOrDefault(i => i.Id == itemId)
+        //    .CategoryId);
+        //}
+        public bool DoesCategoryExist(int categoryId)
         {
-            return this.data.Categories.Any(c => c.Id == this.data
-            .Items
-            .FirstOrDefault(i => i.Id == itemId)
-            .CategoryId);
+            return this.data.Categories.Any(c => c.Id == categoryId);
         }
 
         public Item GetItem(int id)

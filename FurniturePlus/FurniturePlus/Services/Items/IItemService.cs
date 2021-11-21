@@ -14,7 +14,7 @@ namespace FurniturePlus.Services.Items
         List<ItemIndexViewModel> GetAllItemsForHomePage();
         void AddItem(AddItemFormModel item, string currentUserId);
         IEnumerable<ItemCategoryViewModel> GetItemCategories();
-        bool DoesCategoryExist(int itemId);
+        bool DoesCategoryExist(int categoryId);
         EditItemFormModel EditItem(int itemId);
         void EditItem(EditItemFormModel item);
     }

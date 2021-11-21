@@ -43,7 +43,7 @@ namespace FurniturePlus.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult AddItem(AddItemFormModel item)
         {
-            if (!this.items.DoesCategoryExist(item.Id))
+            if (!this.items.DoesCategoryExist(item.CategoryId))
             {
                 this.ModelState.AddModelError(nameof(item.CategoryId), "Category does not exist.");
             }
@@ -73,33 +73,7 @@ namespace FurniturePlus.Controllers
             return View(item);
         }
 
-        //[Authorize]
-        //public IActionResult EditItem(int id)
-        //{
-        //    if (!this.IsSalesman() && !User.IsAdmin())
-        //    {
-        //        return RedirectToAction(nameof(SalesmenController.RegisterSalesman), "Salesmen");
-        //    }
 
-        //   var item= this.data
-        //        .Items
-        //        .Where(i => i.Id == id)
-        //        .Select(i => new EditItemFormModel
-        //        {
-        //            Id = i.Id,
-        //            Name = i.Name,
-        //            Category = i.Category,
-        //            CategoryId = i.CategoryId,
-        //            Vendor = i.Vendor,
-        //            ImageUrl = i.ImageUrl,
-        //            Description = i.Description,
-        //            Price = i.Price,
-        //            ItemCategories = this.GetItemCategories()
-        //        })
-        //        .FirstOrDefault();
-
-        //    return View(item);
-        //}
 
         [HttpPost]
         [Authorize]
@@ -108,7 +82,7 @@ namespace FurniturePlus.Controllers
         public IActionResult EditItem(EditItemFormModel item)
         {
 
-            if (!this.items.DoesCategoryExist(item.Id))
+            if (!this.items.DoesCategoryExist(item.CategoryId))
             {
                 this.ModelState.AddModelError(nameof(item.CategoryId), "Category does not exist.");
             }
@@ -123,44 +97,7 @@ namespace FurniturePlus.Controllers
             return RedirectToAction(nameof(Details), new { id = item.Id });
         }
 
-        //public IActionResult EditItem(EditItemFormModel item, int id)
-        //{
-
-        //    //if (!this.items.DoesCategoryExist(item.Id))
-        //    //{
-        //    //    this.ModelState.AddModelError(nameof(item.CategoryId), "Category does not exist.");
-        //    //}
-        //    //if (!ModelState.IsValid)
-        //    //{
-        //    //    item.ItemCategories = this.items.GetItemCategories();
-        //    //    return View(item);
-        //    //}
-
-        //    if (!this.data.Categories.Any(c => c.Id == item.CategoryId))
-        //    {
-        //        this.ModelState.AddModelError(nameof(item.CategoryId), "Category does not exist.");
-        //    }
-        //    if (!ModelState.IsValid)
-        //    {
-        //        item.ItemCategories = this.GetItemCategories();
-        //        return View(item);
-        //    }
-
-        //    var currentItem = this.data
-        //        .Items
-        //        .FirstOrDefault(i => i.Id == id);
-
-        //    // currentItem.Category = item.Category;
-        //    currentItem.Name = item.Name;
-        //    currentItem.Description = item.Description;
-        //    currentItem.ImageUrl = item.ImageUrl;
-        //    currentItem.Price = item.Price;
-
-        //    this.data.SaveChanges();
-
-        //    return RedirectToAction(nameof(Details), new { id });
-        //}
-
+       
         public IActionResult Details(int id)    //parameter named "id" --> "id" in "asp-route-id" 
         {
             var currentUserId = "";
@@ -182,17 +119,5 @@ namespace FurniturePlus.Controllers
         {
             return User.Identity.IsAuthenticated;
         }
-
-        //private IEnumerable<ItemCategoryViewModel> GetItemCategories()
-        //{
-        //    return data
-        //        .Categories
-        //        .Select(c => new ItemCategoryViewModel
-        //        {
-        //            Id = c.Id,
-        //            Name = c.Name
-        //        })
-        //        .ToList();
-        //}
     }
 }

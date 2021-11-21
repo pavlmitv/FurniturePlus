@@ -220,6 +220,8 @@ namespace FurniturePlus.Services.Items
 
             // currentItem.Category = item.Category;
             currentItem.Name = item.Name;
+            currentItem.Category = item.Category;
+            currentItem.CategoryId = item.CategoryId;
             currentItem.Description = item.Description;
             currentItem.ImageUrl = item.ImageUrl;
             currentItem.Price = item.Price;

@@ -1,4 +1,5 @@
 ﻿using FurniturePlus.Data;
+using FurniturePlus.Data.Models;
 using FurniturePlus.Models.Vendors;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,6 +55,21 @@ namespace FurniturePlus.Services.Vendors
         public bool DoesVendorExist(int salesmanVendorId)
         {
             return this.data.Vendors.Any(v => v.Id == salesmanVendorId);
+        }
+        public void AddVendor(AddVendorFormModel vendor)
+        {
+            var newVendor = new Vendor
+            {
+                Id = vendor.Id,
+                Name = vendor.Name,
+                Address = vendor.Address,
+                Phone = vendor.Phone,
+                Email = vendor.Email,
+                VATNumber = vendor.VATNumber,
+                IsApproved = false
+            };
+            this.data.Vendors.Add(newVendor);
+            this.data.SaveChanges();
         }
     }
 }

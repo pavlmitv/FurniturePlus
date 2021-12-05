@@ -12,13 +12,11 @@ namespace FurniturePlus.Controllers
 {
     public class SalesmenController : Controller
     {
-        private readonly FurniturePlusDbContext data;
         private readonly ISalesmanService salesmen;
         private readonly IVendorService vendors;
 
-        public SalesmenController(FurniturePlusDbContext data, ISalesmanService salesmen, IVendorService vendors)
+        public SalesmenController(ISalesmanService salesmen, IVendorService vendors)
         {
-            this.data = data;
             this.salesmen = salesmen;
             this.vendors = vendors;
         }
@@ -54,23 +52,6 @@ namespace FurniturePlus.Controllers
             }
 
             this.salesmen.RegisterSalesman(salesman, userId);
-            //var newSalesman = new Salesman
-            //{
-            //    FirstName = salesman.FirstName,
-            //    LastName = salesman.LastName,
-            //    PhoneNumber = salesman.PhoneNumber,
-            //    UserId = this.User.GetId(),
-            //    VendorId = salesman.VendorId,
-            //    Vendor = this.data
-            //             .Vendors
-            //             .Where(v => v.Id == salesman.VendorId)
-            //             .FirstOrDefault(),
-            //    IsApproved = false,
-                
-            //};
-
-            //this.data.Salesmen.Add(newSalesman);
-            //this.data.SaveChanges();
 
             return RedirectToAction("All", "Items");
         }

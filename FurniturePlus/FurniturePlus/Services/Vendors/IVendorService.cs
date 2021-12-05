@@ -13,5 +13,6 @@ namespace FurniturePlus.Services.Vendors
         List<VendorDetailsModel> RequestVendors();
         int VendorsCount();
         bool DoesVendorExist(int vendorId);
+        void AddVendor(AddVendorFormModel vendor);
     }
 }

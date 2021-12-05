@@ -12,5 +12,6 @@ namespace FurniturePlus.Services.Salesmen
         IEnumerable<SalesmanVendorViewModel> GetVendors();
         bool IsUserASalesman(string userId);
         bool IsSalesmanApproved(string userId);
+        void RegisterSalesman(RegisterSalesmanFormModel salesman, string userId);
     }
 }

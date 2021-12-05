@@ -73,5 +73,27 @@ namespace FurniturePlus.Services.Vendors
                 .Salesmen
                 .FirstOrDefault(s => s.UserId == userId).IsApproved;
         }
+
+
+        public void RegisterSalesman(RegisterSalesmanFormModel salesman, string userId)
+        {
+            var newSalesman = new Salesman
+            {
+                FirstName = salesman.FirstName,
+                LastName = salesman.LastName,
+                PhoneNumber = salesman.PhoneNumber,
+                UserId = userId,
+                VendorId = salesman.VendorId,
+                Vendor = this.data
+                         .Vendors
+                         .Where(v => v.Id == salesman.VendorId)
+                         .FirstOrDefault(),
+                IsApproved = false,
+
+            };
+
+            this.data.Salesmen.Add(newSalesman);
+            this.data.SaveChanges();
+        }
     }
 }

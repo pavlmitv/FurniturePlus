@@ -53,23 +53,24 @@ namespace FurniturePlus.Controllers
                 return BadRequest("You either have already registered as a salesman or you've sent a request and should wait for an approval from Administrator.");
             }
 
-            var newSalesman = new Salesman
-            {
-                FirstName = salesman.FirstName,
-                LastName = salesman.LastName,
-                PhoneNumber = salesman.PhoneNumber,
-                UserId = this.User.GetId(),
-                VendorId = salesman.VendorId,
-                Vendor = this.data
-                         .Vendors
-                         .Where(v => v.Id == salesman.VendorId)
-                         .FirstOrDefault(),
-                IsApproved = false,
+            this.salesmen.RegisterSalesman(salesman, userId);
+            //var newSalesman = new Salesman
+            //{
+            //    FirstName = salesman.FirstName,
+            //    LastName = salesman.LastName,
+            //    PhoneNumber = salesman.PhoneNumber,
+            //    UserId = this.User.GetId(),
+            //    VendorId = salesman.VendorId,
+            //    Vendor = this.data
+            //             .Vendors
+            //             .Where(v => v.Id == salesman.VendorId)
+            //             .FirstOrDefault(),
+            //    IsApproved = false,
                 
-            };
+            //};
 
-            this.data.Salesmen.Add(newSalesman);
-            this.data.SaveChanges();
+            //this.data.Salesmen.Add(newSalesman);
+            //this.data.SaveChanges();
 
             return RedirectToAction("All", "Items");
         }

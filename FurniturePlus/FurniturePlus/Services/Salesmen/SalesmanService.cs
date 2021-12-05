@@ -67,6 +67,11 @@ namespace FurniturePlus.Services.Vendors
                 .Salesmen
                 .Any(s => s.UserId == userId);
         }
-
+        public bool IsSalesmanApproved(string userId)
+        {
+            return this.data
+                .Salesmen
+                .FirstOrDefault(s => s.UserId == userId).IsApproved;
+        }
     }
 }

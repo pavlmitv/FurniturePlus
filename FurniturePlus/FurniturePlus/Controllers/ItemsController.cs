@@ -2,6 +2,7 @@
 using FurniturePlus.Infrastructure;
 using FurniturePlus.Models.Items;
 using FurniturePlus.Services.Items;
+using FurniturePlus.Services.Salesmen;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -10,13 +11,14 @@ namespace FurniturePlus.Controllers
 {
     public class ItemsController : Controller
     {
-        private readonly FurniturePlusDbContext data;
         private readonly IItemService items;
+        private readonly ISalesmanService salesmen;
 
-        public ItemsController(FurniturePlusDbContext data, IItemService items)
+        public ItemsController(IItemService items, ISalesmanService salesmen)
         {
-            this.data = data;
+
             this.items = items;
+            this.salesmen = salesmen;
         }
 
         public IActionResult All([FromQuery] ItemSearchModel query)
@@ -27,7 +29,7 @@ namespace FurniturePlus.Controllers
         [Authorize]
         public IActionResult AddItem()
         {
-            if (!this.IsSalesman() && !User.IsAdmin())
+            if (!this.IsSalesman(this.User.GetId()) && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(SalesmenController.RegisterSalesman), "Salesmen");
             }
@@ -63,7 +65,7 @@ namespace FurniturePlus.Controllers
         [Authorize]
         public IActionResult EditItem(int id)
         {
-            if (!this.IsSalesman() && !User.IsAdmin())
+            if (!this.IsSalesman(this.User.GetId()) && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(SalesmenController.RegisterSalesman), "Salesmen");
             }
@@ -97,7 +99,7 @@ namespace FurniturePlus.Controllers
             return RedirectToAction(nameof(Details), new { id = item.Id });
         }
 
-       
+
         public IActionResult Details(int id)    //parameter named "id" --> "id" in "asp-route-id" 
         {
             var currentUserId = "";
@@ -105,19 +107,19 @@ namespace FurniturePlus.Controllers
             {
                 currentUserId = this.User.GetId();
             }
-            var item = this.items.Details(id, currentUserId, this.IsSalesman());
+            var item = this.items.Details(id, currentUserId, this.IsSalesman(currentUserId));
             return View(item);
         }
 
-        public bool IsSalesman()
+        public bool IsSalesman(string userId)
         {
-            return this.data.Salesmen.Any(s => s.UserId == this.User.GetId())
-                    ? this.data.Salesmen.FirstOrDefault(s => s.UserId == this.User.GetId()).IsApproved
-                    : false;
+            return this.salesmen.IsUserASalesman(userId) ? this.salesmen.IsSalesmanApproved(userId) : false;
         }
         public bool IsAuthenticated()
         {
             return User.Identity.IsAuthenticated;
         }
+
+
     }
 }
